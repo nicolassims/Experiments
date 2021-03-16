@@ -10,10 +10,10 @@ use Mix.Config
 # Configures the endpoint
 config :neatthing, NeatthingWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "aDA4KYr2sFla+zjwnRHIw3BfG64Pb7j+NjrkLpdvs51SZjBujUrQrPjGPoFZV8S1",
+  secret_key_base: "en+ic0awliG/BzlFoWPPtLCd2URZNbMYrKcms00wG//1lE8C5R+qU+NsC98o0K4Q",
   render_errors: [view: NeatthingWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Neatthing.PubSub,
-  live_view: [signing_salt: "l4j7Q4e7"]
+  live_view: [signing_salt: "osBitO4s"]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -7,7 +7,7 @@ defmodule NeatthingWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_neatthing_key",
-    signing_salt: "WtZpklgj"
+    signing_salt: "TmCJLEtm"
   ]
 
   socket "/socket", NeatthingWeb.UserSocket,
