@@ -34,7 +34,18 @@ defmodule NeatthingWeb.PageLive do
   @impl true
   def render(assigns) do
     ~L"""
-    <h1><%= inspect @now %></h1>
+    <p>
+      This time is being echoed every second from the output on
+      <%= NeatthingWeb.Endpoint.url <> "/clock" %>. To clarify, every
+      second, I make an HTTP request to the aforementioned URL, and
+      then format the input to display the time here. This experiment
+      demonstrates that we can, in fact, have processes running in the
+      background of the server, making HTTPRequests every second, and
+      updating the page to reflect that.
+    </p>
+
+    <p>(Of course, we knew we could do that before, but now we know <i>how</i> to.)</p>
+    <h1><%= @echo %></h1>
     """
   end
 
@@ -46,15 +57,14 @@ defmodule NeatthingWeb.PageLive do
   end
 
   defp assign_current_time(socket) do
-    Enum.random(0..100)
+    echo = HTTPoison.get!(NeatthingWeb.Endpoint.url <> "/clock").body
+    |> String.split(~r/<h1>/)
+    |> tl
+    |> hd
+    |> String.split(~r/<\/h1>/)
+    |> hd
 
-    now = HTTPoison.get!("http://freudiancreations.website")
-    #Time.utc_now()
-    #|> Time.to_string()
-    #|> String.split(".")
-    #|> hd
-
-    assign(socket, now: now)
+    assign(socket, echo: echo)
   end
 
   defp search(query) do
