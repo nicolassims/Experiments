@@ -3,10 +3,11 @@ defmodule NeatthingWeb.PageLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    socket = socket
-    |> assign(:light_bulb_status, "off")
-    |> assign(:on_button_status, "")
-    |> assign(:off_button_status, "disabled")
+    if (connected?(socket)) do
+      :timer.send_interval(1000, self(), :tick)
+    end
+
+    socket = assign_current_time(socket)
 
     {:ok, socket}
   end
@@ -33,30 +34,25 @@ defmodule NeatthingWeb.PageLive do
   @impl true
   def render(assigns) do
     ~L"""
-    <h1>The light is <%= @light_bulb_status %>.</h1>
-    <button phx-click="on" <%= @on_button_status %>>On</button>
-    <button phx-click="off" <%= @off_button_status %>>Off</button>
+    <h1><%= @now %></h1>
     """
   end
 
   @impl true
-  def handle_event("on", _value, socket) do
-    socket = socket
-    |> assign(:light_bulb_status, "on")
-    |> assign(:on_button_status, "disabled")
-    |> assign(:off_button_status, "")
+  def handle_info(:tick, socket) do
+    socket = assign_current_time(socket)
 
     {:noreply, socket}
   end
 
   @impl true
-  def handle_event("off", _value, socket) do
-    socket = socket
-    |> assign(:light_bulb_status, "off")
-    |> assign(:on_button_status, "")
-    |> assign(:off_button_status, "disabled")
+  def assign_current_time(socket) do
+    now = Time.utc_now()
+    |> Time.to_string()
+    |> String.split(".")
+    |> hd
 
-    {:noreply, socket}
+    assign(socket, now: now)
   end
 
   defp search(query) do
