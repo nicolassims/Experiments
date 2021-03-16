@@ -34,7 +34,7 @@ defmodule NeatthingWeb.PageLive do
   @impl true
   def render(assigns) do
     ~L"""
-    <h1><%= @now %></h1>
+    <h1><%= inspect @now %></h1>
     """
   end
 
@@ -45,12 +45,14 @@ defmodule NeatthingWeb.PageLive do
     {:noreply, socket}
   end
 
-  @impl true
-  def assign_current_time(socket) do
-    now = Time.utc_now()
-    |> Time.to_string()
-    |> String.split(".")
-    |> hd
+  defp assign_current_time(socket) do
+    Enum.random(0..100)
+
+    now = HTTPoison.get!("http://freudiancreations.website")
+    #Time.utc_now()
+    #|> Time.to_string()
+    #|> String.split(".")
+    #|> hd
 
     assign(socket, now: now)
   end
