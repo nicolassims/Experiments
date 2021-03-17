@@ -17,7 +17,7 @@ defmodule TwitterWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/tweet", TweetController, :index
+    resources "/tweet", TweetController
 
     post "/authorize", AuthController, :auth
   end

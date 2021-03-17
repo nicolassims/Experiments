@@ -24,7 +24,28 @@ defmodule TwitterWeb.Helpers do
     elem(resp, 1)
   end
 
-  def get_access_token(_conn) do
-    IO.inspect("reached here")
+  def set_access(access) do
+    IO.inspect(access)
+    config = ExTwitter.Config.get()
+    %{oauth_token: oauth_token, oauth_token_secret: oauth_token_secret } = access
+
+    config = config
+    |> Keyword.put(:access_token, oauth_token)
+    |> Keyword.put(:access_token_secret, oauth_token_secret)
+
+    IO.inspect(config)
+    ExTwitter.Config.set(:process, config)
+  end
+
+  def get_status() do
+    tl = ExTwitter.API.Timelines.user_timeline()
+    IO.inspect(tl)
+    tl
+  end
+
+  def post_status(status) do
+    resp = ExTwitter.API.Tweets.update(status)
+    IO.inspect(resp)
+    resp
   end
 end

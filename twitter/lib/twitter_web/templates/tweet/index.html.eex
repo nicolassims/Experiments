@@ -1,1 +1,14 @@
-<p>Authorized for: <%= Map.get(@access, "name") %></p>
+<div>
+    <p>Authorized for: <%= Map.get(@access, :name) %></p>
+
+    <p>Latest Tweet: <%= get_status() %>
+</div>
+
+<div>
+    <%= render(
+        TwitterWeb.TweetView,
+        "new.html",
+        conn: @conn,
+        action: Routes.tweet_path(@conn, :create, %{access: @access}),
+    ) %>
+</div>

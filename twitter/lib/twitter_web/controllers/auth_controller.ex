@@ -15,8 +15,10 @@ defmodule TwitterWeb.AuthController do
       id: resp.user_id,
       oauth_token: resp.oauth_token,
       oauth_token_secret: resp.oauth_token_secret}
-    IO.inspect(resp)
+    IO.inspect(respMap)
+    set_access(respMap)
     conn
-    |> redirect(to: Routes.tweet_path(conn, :index, access: respMap))
+    |> redirect(to: Routes.tweet_path(conn, :index,
+      access: respMap))
   end
 end
