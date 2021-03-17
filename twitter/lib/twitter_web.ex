@@ -24,6 +24,8 @@ defmodule TwitterWeb do
       import Plug.Conn
       import TwitterWeb.Gettext
       alias TwitterWeb.Router.Helpers, as: Routes
+
+      import TwitterWeb.Helpers
     end
   end
 
@@ -69,6 +71,8 @@ defmodule TwitterWeb do
       import TwitterWeb.ErrorHelpers
       import TwitterWeb.Gettext
       alias TwitterWeb.Router.Helpers, as: Routes
+
+      import TwitterWeb.Helpers
     end
   end
 

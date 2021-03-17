@@ -1,0 +1,1 @@
+<p>Authorized for: <%= Map.get(@access, "name") %></p>

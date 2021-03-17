@@ -17,6 +17,9 @@ defmodule TwitterWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/tweet", TweetController, :index
+
+    post "/authorize", AuthController, :auth
   end
 
   # Other scopes may use custom stacks.
