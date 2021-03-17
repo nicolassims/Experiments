@@ -31,7 +31,8 @@ defmodule TwitterWeb.Helpers do
   def set_access(access) do
     IO.inspect(access)
     config = ExTwitter.Config.get()
-    %{oauth_token: oauth_token, oauth_token_secret: oauth_token_secret } = access
+    %{"oauth_token" => oauth_token,
+      "oauth_token_secret" => oauth_token_secret } = access
 
     config = config
     |> Keyword.put(:access_token, oauth_token)
@@ -41,7 +42,8 @@ defmodule TwitterWeb.Helpers do
     ExTwitter.Config.set(:process, config)
   end
 
-  def get_status() do
+  def get_status(access) do
+    set_access(access)
     tl = ExTwitter.API.Timelines.user_timeline()
     IO.inspect(tl)
     tweet = Enum.fetch!(tl, 0)
@@ -49,7 +51,8 @@ defmodule TwitterWeb.Helpers do
     tweet.text
   end
 
-  def post_status(status) do
+  def post_status(access, status) do
+    set_access(access)
     resp = ExTwitter.API.Tweets.update(status)
     IO.inspect(resp)
     resp

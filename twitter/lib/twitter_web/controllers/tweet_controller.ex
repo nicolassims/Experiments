@@ -11,7 +11,7 @@ defmodule TwitterWeb.TweetController do
   end
 
   def create(conn, %{"access" => access, "status" => status}) do
-    post_status(status)
+    post_status(access, status)
     redirect(conn, to: Routes.tweet_path(conn, :index, access: access))
   end
 end

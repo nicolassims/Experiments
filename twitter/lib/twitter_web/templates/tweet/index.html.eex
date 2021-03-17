@@ -1,7 +1,7 @@
 <div>
     <p>Authorized for: <%= get_user_name(@access) %></p>
 
-    <p>Latest Tweet: <%= get_status() %>
+    <p>Latest Tweet: <%= get_status(@access) %>
 </div>
 
 <div>
