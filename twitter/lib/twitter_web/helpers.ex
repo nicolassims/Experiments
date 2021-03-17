@@ -1,5 +1,9 @@
 defmodule TwitterWeb.Helpers do
 
+  def get_user_name(access) do
+    Map.get(access, "name")
+  end
+
   def get_limit_search() do
     limit = ExTwitter.rate_limit_status()
     searchLimits = limit.resources.search
@@ -40,7 +44,9 @@ defmodule TwitterWeb.Helpers do
   def get_status() do
     tl = ExTwitter.API.Timelines.user_timeline()
     IO.inspect(tl)
-    tl
+    tweet = Enum.fetch!(tl, 0)
+    IO.inspect(tweet)
+    tweet.text
   end
 
   def post_status(status) do

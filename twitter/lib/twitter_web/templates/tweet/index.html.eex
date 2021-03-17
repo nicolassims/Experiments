@@ -1,5 +1,5 @@
 <div>
-    <p>Authorized for: <%= Map.get(@access, :name) %></p>
+    <p>Authorized for: <%= get_user_name(@access) %></p>
 
     <p>Latest Tweet: <%= get_status() %>
 </div>
